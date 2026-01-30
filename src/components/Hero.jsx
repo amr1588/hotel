@@ -17,15 +17,15 @@ export default function Hero() {
     hidden: {
       y: 50,
       opacity: 0,
-      filter: "blur(20px)", // <--- THIS Creates the "Weird" foggy look
+      filter: "blur(20px)", 
     },
     visible: {
       y: 0,
       opacity: 1,
-      filter: "blur(0px)", // Becomes sharp
+      filter: "blur(0px)", 
       transition: {
         duration: 1,
-        ease: [0.2, 0.65, 0.3, 0.9], // Smooth "Luxury" easing
+        ease: [0.2, 0.65, 0.3, 0.9],
       },
     },
   };
@@ -34,19 +34,18 @@ export default function Hero() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.05, // Fast stagger for letters inside the word
-        delayChildren: 0.2, // Small delay before starting
+        staggerChildren: 0.05, 
+        delayChildren: 0.2, 
       },
     },
   };
 
-  // We need a parent container variant to stagger the WORDS themselves
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Delays the start of each word (Grand -> Emily -> Hotel)
+        staggerChildren: 0.1,
         delayChildren: 0.3,
       },
     },
@@ -66,7 +65,7 @@ export default function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-stone-900">
       <Navbar/>
-      {/* 1. BACKGROUND IMAGE */}
+      {/*  BG IMAGE */}
       <div className="absolute inset-0 z-0">
         <motion.img
           variants={imageVariants}
@@ -76,30 +75,30 @@ export default function Hero() {
           alt="Grand Emily Hotel Lobby"
           className="w-full h-full object-cover opacity-70"
         />
-        {/* Dark Gradient Overlay */}
+        {/* Dark  Layer */}
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
-      {/* 2. MAIN CONTENT */}
+      {/* CONTENT */}
       <div className="relative z-10 h-full flex flex-col justify-center text-center text-white px-4">
-        {/* ANIMATED TITLE (Letter by Letter) */}
+       
         <motion.h1
-          variants={containerVariants} // <--- ATTACHED THE CONTAINER VARIANTS HERE
+          variants={containerVariants}  
           initial="hidden"
           animate="visible"
           className="font-serif text-4xl md:text-5xl lg:text-8xl mb-12 flex justify-center flex-wrap gap-x-3 md:gap-x-6"
         >
           {title.split(" ").map((word, i) => (
-            // We animate each WORD separately so they appear together
+            // Animate each word separately
             <motion.span
               key={i}
-              variants={wordVariants} // Each word manages its own timing
+              variants={wordVariants} // Each word has its timing
               className="inline-flex overflow-hidden"
             >
               {word.split("").map((char, j) => (
                 <motion.span
                   key={j}
-                  variants={letterVariants} // The blur effect is here
+                  variants={letterVariants} // The blur effect
                 >
                   {char}
                 </motion.span>
@@ -108,14 +107,14 @@ export default function Hero() {
           ))}
         </motion.h1>
 
-        {/* 3. THE FLOATING 'PILL' MENU */}
+        
         <motion.div
           variants={fadeInUpVariants}
           initial="hidden"
           animate="visible"
           className="w-full md:max-w-5xl max-w-[400px] grid grid-cols-1 md:grid-cols-4 gap-8 items-end text-left mx-auto"
         >
-          {/* Input 1: Dates */}
+          
           <div className="border-b border-white/50 pb-3 cursor-pointer group hover:border-white transition">
             <span className="text-lg md:text-xl font-sans tracking-wide text-white/70">
               Dates
@@ -123,7 +122,7 @@ export default function Hero() {
             <span className="float-right text-xs opacity-50 mt-2">▼</span>
           </div>
 
-          {/* Input 2: Rooms */}
+          
           <div className="border-b border-white/50 pb-3 cursor-pointer group hover:border-white transition">
             <span className="text-lg md:text-xl font-sans tracking-wide text-white/70">
               Rooms
@@ -131,7 +130,7 @@ export default function Hero() {
             <span className="float-right text-xs opacity-50 mt-2">▼</span>
           </div>
 
-          {/* Input 3: Adults/Children */}
+          
           <div className="border-b border-white/50 pb-3 cursor-pointer group hover:border-white transition">
             <span className="text-lg md:text-xl font-sans tracking-wide text-white/70">
               Adults / Children
@@ -139,13 +138,14 @@ export default function Hero() {
             <span className="float-right text-xs opacity-50 mt-2">▼</span>
           </div>
 
-          {/* THE BUTTON */}
+          
           <div className="flex justify-end md:me-2">
             <button className="uppercase text-xs font-bold tracking-[0.2em] border border-white/60 rounded-full px-10 py-4 hover:bg-white hover:text-black transition duration-300 flex items-center gap-2 text-white/70 mx-auto md:mx-0">
               Let's Go
+              {/* could have used react icons , both work */}
               <svg
                 className="w-4 h-4"
-                fill="none"
+                fill="none"               
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -161,11 +161,10 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* 4. BOTTOM DESCRIPTION */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }} // Appears last
+        transition={{ delay: 1.4, duration: 1 }} 
         className="absolute bottom-10 left-0 w-full text-center px-4"
       >
         <p className="text-white/70 text-xs md:text-sm max-w-xl mx-auto font-light">

@@ -126,9 +126,7 @@ export default function About() {
   if (windowWidth === 0) return null;
 
   return (
-    <section
-      className="w-full h-screen bg-[#dacecb] flex items-center justify-center overflow-hidden relative"
-    >
+    <section className="w-full h-screen bg-[#dacecb] flex items-center justify-center overflow-hidden relative">
       {/* HEADER */}
       <div className="absolute top-0 left-0 w-full px-6 py-8 md:px-12 md:py-10 flex justify-between items-start text-[0.6rem] md:text-[0.7rem] font-bold tracking-[0.1em] text-black/80 z-40 uppercase font-sans">
         <div>Emily Hotel, 2022</div>
@@ -176,18 +174,17 @@ export default function About() {
                   opacity: isActive ? 1 : 0.5,
                 }}
                 transition={hotelTransition}
-                className="relative flex flex-col items-center flex-shrink-0"
+                className="relative flex flex-col items-center"
               >
                 {/* IMAGE */}
                 <div className="relative w-full h-[35vh] md:h-[50vh] mb-6 select-none pointer-events-none md:pointer-events-auto">
-                  {/* --- BLACK TEXT --- */}
+                  {/* BLACK TEXT */}
                   {isActive && (
                     <div className="absolute inset-0 flex items-center justify-center z-0">
                       <motion.h1
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        // REVERTED SIZE: Back to [8vw] and [5vw], font-light
                         className="text-black text-[8vw] md:text-[5vw] font-light whitespace-nowrap font-serif"
                       >
                         {item.title}
@@ -196,22 +193,20 @@ export default function About() {
                   )}
 
                   {/* IMAGE MASK */}
-                  <div className="absolute inset-0 overflow-hidden shadow-xl z-10 bg-gray-200">
+                  <div className="absolute inset-0 overflow-hidden z-10">
                     <img
                       src={item.src}
                       alt={item.title}
-                      className="w-full h-full object-cover"
-                      draggable="false"
+                      className="w-full h-full object-cover"       
                     />
 
-                    {/* --- WHITE TEXT --- */}
+                    {/* WHITE TEXT */}
                     {isActive && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <motion.h1
                           initial={{ opacity: 0, x: 100 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.6, delay: 0.3 }}
-                          // REVERTED SIZE: Back to [8vw] and [5vw], font-light
                           className="text-white text-[8vw] md:text-[5vw] font-light whitespace-nowrap font-serif"
                         >
                           {item.title}
