@@ -300,7 +300,7 @@ export default function RoomsSection() {
           </button>
         </div>
       </div>
-      <div className="absolute bottom-1 right-2 text-[0.7rem] font-bold tracking-widest">
+      <div className="absolute bottom-1 right-4 text-[0.7rem] font-bold tracking-widest">
         {(current + 1).toString().padStart(2, "0")}/
         {totalRooms.toString().padStart(2, "0")}
       </div>
