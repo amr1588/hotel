@@ -116,7 +116,6 @@ export default function RoomsSection() {
     setCurrent((prev) => (prev - 1 + totalRooms) % totalRooms);
   };
 
-  // --- NEW: KEYBOARD NAVIGATION ---
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isInView) return;
@@ -192,7 +191,7 @@ export default function RoomsSection() {
             </AnimatePresence>
           </div>
 
-          <div className="hidden md:flex justify-between items-center text-[0.7rem] font-bold tracking-widest mt-6 uppercase shrink-0">
+          <div className="hidden md:flex justify-between items-center text-[0.7rem] font-bold tracking-widest mt-6 uppercase">
             <div className="flex gap-12">
               <button
                 onClick={prevSlide}
@@ -267,7 +266,7 @@ export default function RoomsSection() {
               transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
               className="mb-1"
             >
-              <button className="border border-[#F3F0EB]/40 rounded-full px-6 py-3 text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.15em] uppercase hover:bg-[#F3F0EB] hover:text-[#2C3329] transition-colors">
+              <button className="border border-[#F3F0EB]/40 rounded-full px-6 py-3 text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.15em] uppercase hover:bg-[#F3F0EB] hover:text-[#2C3329] transition-colors md:mb-0 mb-5">
                 {room.price}
               </button>
             </motion.div>
@@ -279,7 +278,7 @@ export default function RoomsSection() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               exit="exit"
-              className="flex flex-col items-start text-left text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.15em] leading-loose opacity-80 uppercase"
+              className="flex flex-col items-start text-left text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.15em] leading-loose opacity-80 uppercase md:mb-0"
             >
               {room.features.map((feature, i) => (
                 <motion.li key={i} variants={featureItemVariants}>
@@ -292,7 +291,7 @@ export default function RoomsSection() {
       </div>
 
       <div className="md:hidden flex justify-between items-center text-[0.7rem] font-bold tracking-widest absolute bottom-4 left-6 right-6 z-30">
-        <div className="flex gap-8">
+        <div className="flex md:gap-8 gap-12">
           <button onClick={prevSlide} className="p-2">
             &larr;
           </button>
@@ -300,10 +299,10 @@ export default function RoomsSection() {
             &rarr;
           </button>
         </div>
-        <div>
-          {(current + 1).toString().padStart(2, "0")}/
-          {totalRooms.toString().padStart(2, "0")}
-        </div>
+      </div>
+      <div className="absolute bottom-1 right-2 text-[0.7rem] font-bold tracking-widest">
+        {(current + 1).toString().padStart(2, "0")}/
+        {totalRooms.toString().padStart(2, "0")}
       </div>
     </section>
   );
