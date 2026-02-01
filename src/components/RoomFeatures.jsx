@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
+// --- DATA: ALL IMAGES STANDARDIZED TO w=2000 & h=1500 ---
 const roomData = [
   {
     id: 1,
@@ -60,7 +61,7 @@ const roomData = [
   },
 ];
 
-
+// --- ANIMATIONS ---
 const transitionSpec = { duration: 0.8, ease: [0.76, 0, 0.24, 1] };
 
 const textRevealVariants = {
@@ -123,7 +124,7 @@ export default function RoomsSection() {
       ref={sectionRef}
       className="w-full h-screen bg-[#2C3329] text-[#F3F0EB] relative px-4 py-3 md:px-12 md:py-8 flex flex-col overflow-hidden font-sans"
     >
-      {/* BACKGROUND LINE */}
+      {/* ARTISTIC BACKGROUND LINE */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <svg
           viewBox="0 0 1440 900"
@@ -145,32 +146,29 @@ export default function RoomsSection() {
             animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
             transition={{ duration: 3.8, ease: "easeInOut" }}
           />
-          <motion.g
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 2.8 }}
-          >
-            <circle
-              cx="1310"
-              cy="285"
-              r="48"
-              stroke="#FFFFFF"
-              strokeWidth="0.8"
-              fill="none"
-            />
-            <text
-              x="1310"
-              y="290"
-              fill="#FFFFFF"
-              textAnchor="middle"
-              transform="rotate(-15, 1310, 290)"
-              className="text-[10px] uppercase tracking-[0.2em] font-bold"
-              style={{ fontSize: "10px" }}
-            >
-              NEXT
-            </text>
-          </motion.g>
         </svg>
+
+        {/* HTML 'NEXT' BUTTON - RESIZED FOR MOBILE */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 2.8 }}
+          className="absolute z-10 flex items-center justify-center rounded-full border border-white"
+          style={{
+            left: "91%",
+            top: "31.6%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          {/* MOBILE: w-10 h-10 (40px)
+             DESKTOP: w-24 h-24 (96px)
+          */}
+          <div className="w-8 h-8 md:w-24 md:h-24 flex items-center justify-center">
+            <span className="text-white text-[6px] md:text-[10px] uppercase tracking-[0.2em] font-bold -rotate-15">
+              NEXT
+            </span>
+          </div>
+        </motion.div>
       </div>
 
       {/* HEADER */}
@@ -225,6 +223,7 @@ export default function RoomsSection() {
             </AnimatePresence>
           </div>
 
+          {/* CONTROLS */}
           <div className="flex justify-between items-center text-[0.7rem] font-bold tracking-widest mt-2 md:mt-6 uppercase w-full">
             <button
               onClick={prevSlide}
@@ -252,7 +251,7 @@ export default function RoomsSection() {
           <div className="font-serif text-[12vw] md:text-[7vw] lg:text-[8vw] leading-[0.85] uppercase tracking-tighter">
             <AnimatePresence mode="wait">
               <div key={room.id}>
-                {/* OVERLAPPING IMAGE */}
+                {/* LINE 1 */}
                 <div className="overflow-hidden relative md:-ms-40 lg:-ms-[600px]">
                   <motion.h1
                     custom={0}
@@ -294,7 +293,7 @@ export default function RoomsSection() {
             </AnimatePresence>
           </div>
 
-          {/* FOOTER */}
+          {/* FOOTER AREA */}
           <div className="w-full flex flex-row justify-between items-end mt-auto pb-2 md:pb-6">
             <motion.div
               key={`price-${room.id}`}
