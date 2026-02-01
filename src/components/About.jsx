@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const hotelData = [
+  // ... your existing hotelData remains the same
   {
     id: 1,
     src: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop",
@@ -69,7 +70,6 @@ export default function About() {
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // 1. SETUP
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -80,30 +80,20 @@ export default function About() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 2. PIXEL MATH
   const SLIDE_WIDTH_VW = isMobile ? 70 : 30;
   const GAP_VW = isMobile ? 5 : 20;
-
   const slideWidthPx = (SLIDE_WIDTH_VW / 100) * windowWidth;
   const gapPx = (GAP_VW / 100) * windowWidth;
   const offsetPx =
     windowWidth / 2 - slideWidthPx / 2 - index * (slideWidthPx + gapPx);
 
-  // 3. TRANSITION
-  const hotelTransition = {
-    duration: 0.9,
-    ease: [0.77, 0, 0.18, 1],
-  };
+  const hotelTransition = { duration: 0.9, ease: [0.77, 0, 0.18, 1] };
 
-  // 4. CONTROLS
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === "ArrowRight") {
+      if (e.key === "ArrowRight")
         setIndex((prev) => Math.min(prev + 1, hotelData.length - 1));
-      }
-      if (e.key === "ArrowLeft") {
-        setIndex((prev) => Math.max(prev - 1, 0));
-      }
+      if (e.key === "ArrowLeft") setIndex((prev) => Math.max(prev - 1, 0));
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -112,7 +102,6 @@ export default function About() {
   const handleDragEnd = (event, info) => {
     const threshold = 50;
     const velocityThreshold = 100;
-
     if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
       setIndex((prev) => Math.min(prev + 1, hotelData.length - 1));
     } else if (
@@ -127,6 +116,26 @@ export default function About() {
 
   return (
     <section className="w-full h-screen bg-[#dacecb] flex items-center justify-center overflow-hidden relative">
+      {/* --- DYNAMIC BACKGROUND SVG LINE --- */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <motion.svg
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="none"
+          className="absolute w-[200%] h-full opacity-30"
+          // We move the background at half the speed of the slides for a parallax effect
+          animate={{ x: offsetPx * 0.3 }}
+          transition={hotelTransition}
+        >
+          <path
+            // This 'd' string creates a long, elegant curved path across the background
+            d="M-500,800 C-200,900 200,100 500,500 C800,900 1200,100 1500,400"
+            fill="transparent"
+            stroke="black"
+            strokeWidth="1"
+          />
+        </motion.svg>
+      </div>
+
       {/* HEADER */}
       <div className="absolute top-0 left-0 w-full px-6 py-8 md:px-12 md:py-10 flex justify-between items-start text-[0.6rem] md:text-[0.7rem] font-bold tracking-[0.1em] text-black/80 z-40 uppercase font-sans">
         <div>Emily Hotel, 2022</div>
@@ -143,7 +152,7 @@ export default function About() {
       </div>
 
       {/* TRACK */}
-      <div className="relative w-screen overflow-visible mt-[10vh] md:mt-[15vh]">
+      <div className="relative w-screen overflow-visible mt-[10vh] md:mt-[15vh] z-10">
         <motion.div
           className="flex items-start"
           drag="x"
@@ -176,9 +185,8 @@ export default function About() {
                 transition={hotelTransition}
                 className="relative flex flex-col items-center"
               >
-                {/* IMAGE */}
+                {/* IMAGE & TEXT MASKING (same as your original code) */}
                 <div className="relative w-full h-[35vh] md:h-[50vh] mb-6 select-none pointer-events-none md:pointer-events-auto">
-                  {/* BLACK TEXT */}
                   {isActive && (
                     <div className="absolute inset-0 flex items-center justify-center z-0">
                       <motion.h1
@@ -192,15 +200,12 @@ export default function About() {
                     </div>
                   )}
 
-                  {/* IMAGE MASK */}
                   <div className="absolute inset-0 overflow-hidden z-10">
                     <img
                       src={item.src}
                       alt={item.title}
-                      className="w-full h-full object-cover"       
+                      className="w-full h-full object-cover"
                     />
-
-                    {/* WHITE TEXT */}
                     {isActive && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <motion.h1
@@ -218,7 +223,7 @@ export default function About() {
 
                 {/* INFO */}
                 <div className="w-full h-[80px] md:h-[100px] flex justify-between items-start mt-2 px-1">
-                  {isActive ? (
+                  {isActive && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -232,7 +237,7 @@ export default function About() {
                         Learn More
                       </button>
                     </motion.div>
-                  ) : null}
+                  )}
                 </div>
               </motion.div>
             );
